@@ -1,0 +1,35 @@
+/*try {
+            java.io.File cur_dir = new java.io.File(".");
+            Reader r = ReaderFactory.getReader(cur_dir.getCanonicalPath() +
+                                                java.io.File.separator+
+                                               "resources" +
+                                                java.io.File.separator +
+                                                "cross_cursor.png");
+            BufferedImage cursor_image = r.read();
+            final Cursor cross_cursor = Toolkit.getDefaultToolkit().
+                    createCustomCursor(cursor_image, new Point(8, 8), "cross-cursor");
+            can.setCursor(cross_cursor);
+            System.out.println("Setting cursor");*/
+            can.addMouseListener(new MouseListener() {
+
+                public void mouseEntered(MouseEvent e) {
+                    can.setCursor(new Cursor(Cursor.MOVE_CURSOR));
+                }
+
+                public void mouseExited(MouseEvent e) {
+                    can.setCursor(original_cursor);
+                }
+
+                public void mouseReleased(MouseEvent e) {
+                }
+
+                public void mousePressed(MouseEvent e) {
+                }
+
+                public void mouseClicked(MouseEvent e) {
+                }
+            });
+       /* } catch (Exception e) {
+            //If the cursor is not found then keep the normal one...
+            System.out.println(e.getLocalizedMessage() + "::" + e.toString());
+        }*/
