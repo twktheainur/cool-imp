@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" resourceKey="Form.title"/>
+    <Property name="alwaysOnTop" type="boolean" value="true"/>
+    <Property name="name" type="java.lang.String" value="Form" noResource="true"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="2"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="pColor" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="lColorSpace" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="lComponent1" alignment="1" min="-2" pref="33" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lComponent2" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="lComponent3" min="-2" pref="33" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lCInfo" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfComponent2" alignment="0" max="32767" attributes="1"/>
+                          <Component id="tfComponent3" alignment="0" pref="49" max="32767" attributes="1"/>
+                          <Component id="tfComponent1" alignment="0" max="32767" attributes="1"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="bClose" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="pColor" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Component id="jSeparator1" alignment="0" pref="157" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lCInfo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lColorSpace" alignment="0" min="-2" pref="14" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lComponent1" min="-2" pref="14" max="-2" attributes="0"/>
+                  <Component id="tfComponent1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lComponent2" min="-2" pref="14" max="-2" attributes="0"/>
+                  <Component id="tfComponent2" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="tfComponent3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lComponent3" min="-2" pref="14" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <Component id="bClose" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="pColor">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+            <EtchetBorder/>
+          </Border>
+        </Property>
+        <Property name="name" type="java.lang.String" value="pColor" noResource="true"/>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="113" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="jLabel1.text"/>
+        <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator1">
+      <Properties>
+        <Property name="orientation" type="int" value="1"/>
+        <Property name="name" type="java.lang.String" value="jSeparator1" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lCInfo">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="lCInfo.text"/>
+        <Property name="name" type="java.lang.String" value="lCInfo" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lColorSpace">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="lColorSpace.text"/>
+        <Property name="name" type="java.lang.String" value="lColorSpace" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfComponent1">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="tfComponent1.text"/>
+        <Property name="name" type="java.lang.String" value="tfComponent1" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfComponent2">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="tfComponent2.text"/>
+        <Property name="name" type="java.lang.String" value="tfComponent2" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tfComponent3">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="tfComponent3.text"/>
+        <Property name="name" type="java.lang.String" value="tfComponent3" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lComponent1">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="lComponent1" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lComponent2">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="lComponent2" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lComponent3">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="lComponent3" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="bClose">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" resourceKey="bClose.icon"/>
+        <Property name="mnemonic" type="int" value="67"/>
+        <Property name="text" type="java.lang.String" resourceKey="bClose.text"/>
+        <Property name="name" type="java.lang.String" value="bClose" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bCloseActionPerformed"/>
+      </Events>
+    </Component>
+  </SubComponents>
+</Form>
