@@ -383,6 +383,11 @@ public class MainView extends FrameView {
         mResize.setText(resourceMap.getString("mResize.text")); // NOI18N
         mResize.setToolTipText(resourceMap.getString("mResize.toolTipText")); // NOI18N
         mResize.setName("mResize"); // NOI18N
+        mResize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mResizeActionPerformed(evt);
+            }
+        });
         imageMenu.add(mResize);
 
         mFuse.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -400,6 +405,11 @@ public class MainView extends FrameView {
         mGaussBlur.setText(resourceMap.getString("mGaussBlur.text")); // NOI18N
         mGaussBlur.setToolTipText(resourceMap.getString("mGaussBlur.toolTipText")); // NOI18N
         mGaussBlur.setName("mGaussBlur"); // NOI18N
+        mGaussBlur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mGaussBlurActionPerformed(evt);
+            }
+        });
         filterMenu.add(mGaussBlur);
 
         menuBar.add(filterMenu);
@@ -588,6 +598,15 @@ public class MainView extends FrameView {
             controller.colorHistogram(getCurrentTabCanvas(), mYUVMode.isSelected());
         }
     }//GEN-LAST:event_mColorHistogramActionPerformed
+
+    private void mResizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mResizeActionPerformed
+        controller.resize();
+    }//GEN-LAST:event_mResizeActionPerformed
+
+    private void mGaussBlurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGaussBlurActionPerformed
+        controller.applyGaussianBlur(getCurrentTabCanvas());
+    }//GEN-LAST:event_mGaussBlurActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bClose;
     private javax.swing.JButton bCrop;

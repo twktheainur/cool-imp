@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.Observer;
 import java.util.Observable;
 import Processing.ConvertToGrayscale;
+import Processing.GaussianFilter;
 import Processing.Resize;
 
 
@@ -114,12 +115,22 @@ public class MainController {
         chc.displayHistogramWindow();
     }
 
+    public void resize(){
+        ResizeView resizeView = new ResizeView(view);
+        ResizeController resizeController = new ResizeController(resizeView);
+        resizeController.displayResizeWindow();
+    }
+
     public void convertToGrayscale(ImageCanvas current_canvas){
-        //ConvertToGrayscale ctgs = new ConvertToGrayscale(current_canvas);
-        //BufferedImage result = ctgs.doConvertToGrayscale();
-       Resize r = new Resize(current_canvas);
-       BufferedImage result = r.doResize(100, 100);
+        ConvertToGrayscale ctgs = new ConvertToGrayscale(current_canvas);
+        BufferedImage result = ctgs.doConvertToGrayscale();
         view.addImage("UnsavedGrayscale", null, result, false);
+    }
+
+    public void applyGaussianBlur(ImageCanvas current_canvas){
+        GaussianBlurView gbv = new GaussianBlurView(view);
+        GaussianBlurController gbc = new GaussianBlurController(gbv);
+        gbc.displayBlurWindow();
     }
 
     public void observe(CropListener cl) {
@@ -129,7 +140,6 @@ public class MainController {
     private class CropObserver implements Observer {
 
         public void update(Observable obs, Object obj) {
-            System.out.println("Starting crop");
             CropListener cl = (CropListener) obs;
             ImageCanvas cur_canvas = view.getCurrentTabCanvas();
             Processing.Crop c = new Processing.Crop(cur_canvas);

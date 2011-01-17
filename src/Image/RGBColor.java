@@ -21,4 +21,8 @@ public class RGBColor {
     public static int extractB(int rgb) {
         return (rgb & 0x000000FF);
     }
+
+    public static int combineRGB(int r, int g, int b){
+        return 0xFF000000 + (r << 16) + (g << 8) + b;
+    }
 }

@@ -74,7 +74,7 @@ public class ColorHistogramView extends javax.swing.JFrame {
         bApply = new javax.swing.JButton();
         bOK = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(Main.class).getContext().getResourceMap(ColorHistogramView.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
@@ -167,7 +167,6 @@ public class ColorHistogramView extends javax.swing.JFrame {
         tfMinComponent3.setText(resourceMap.getString("tfMinComponent3.text")); // NOI18N
         tfMinComponent3.setName("tfMinComponent3"); // NOI18N
 
-        bClose.setIcon(null);
         bClose.setMnemonic('C');
         bClose.setText(resourceMap.getString("bClose.text")); // NOI18N
         bClose.setName("bClose"); // NOI18N
@@ -230,7 +229,7 @@ public class ColorHistogramView extends javax.swing.JFrame {
                 .addComponent(tfMaxComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(579, Short.MAX_VALUE)
+                .addContainerGap(599, Short.MAX_VALUE)
                 .addComponent(bOK)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bApply)
