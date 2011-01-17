@@ -233,6 +233,9 @@
                 <Property name="toolTipText" type="java.lang.String" resourceKey="mResize.toolTipText"/>
                 <Property name="name" type="java.lang.String" value="mResize" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mResizeActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mFuse">
               <Properties>
@@ -261,6 +264,9 @@
                 <Property name="toolTipText" type="java.lang.String" resourceKey="mGaussBlur.toolTipText"/>
                 <Property name="name" type="java.lang.String" value="mGaussBlur" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mGaussBlurActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -99,7 +99,6 @@ public class SaveConfirm extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bYesActionPerformed
-        System.out.println("Confirm save!!!");
         controller.saveFile(canvas);
         dispose();
     }//GEN-LAST:event_bYesActionPerformed
