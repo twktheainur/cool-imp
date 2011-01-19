@@ -7,9 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.Observer;
 import java.util.Observable;
 import Processing.ConvertToGrayscale;
-import Processing.GaussianFilter;
-import Processing.Resize;
-
+import Processing.ImageProcessor;
 
 public class MainController {
 
@@ -98,7 +96,7 @@ public class MainController {
         view.getImagesTab().remove(view.getImagesTab().getSelectedIndex());
     }
 
-    public void pixelColorInformation(ImageCanvas current_canvas,boolean isYUV) {
+    public void pixelColorInformation(ImageCanvas current_canvas, boolean isYUV) {
         int mode = ColorInformationView.RGB_MODE;
         if (isYUV) {
             mode = ColorInformationView.YUV_MODE;
@@ -108,33 +106,43 @@ public class MainController {
         current_canvas.addMouseMotionListener(ciw.getCanvasListener());
     }
 
-    public void colorHistogram(ImageCanvas current_canvas,boolean isYUV){
-        int mode = (isYUV)?ColorHistogramView.YUV_MODE:ColorHistogramView.RGB_MODE;
+    public void colorHistogram(ImageCanvas current_canvas, boolean isYUV) {
+        int mode = (isYUV) ? ColorHistogramView.YUV_MODE : ColorHistogramView.RGB_MODE;
         ColorHistogramView chv = new ColorHistogramView(view, mode);
         ColorHistogramController chc = new ColorHistogramController(chv);
         chc.displayHistogramWindow();
     }
 
-    public void resize(){
+    public void resize() {
         ResizeView resizeView = new ResizeView(view);
         ResizeController resizeController = new ResizeController(resizeView);
         resizeController.displayResizeWindow();
     }
 
-    public void convertToGrayscale(ImageCanvas current_canvas){
+    public void convertToGrayscale(ImageCanvas current_canvas) {
         ConvertToGrayscale ctgs = new ConvertToGrayscale(current_canvas);
         BufferedImage result = ctgs.doConvertToGrayscale();
         view.addImage("UnsavedGrayscale", null, result, false);
     }
 
-    public void applyGaussianBlur(ImageCanvas current_canvas){
+    public void applyGaussianBlur(ImageCanvas current_canvas) {
         GaussianBlurView gbv = new GaussianBlurView(view);
-        GaussianBlurController gbc = new GaussianBlurController(gbv);
+        GaussianBlurController gbc = new GaussianBlurController(gbv,this);
         gbc.displayBlurWindow();
+    }
+
+    public void applyLaplacian(ImageCanvas current_canvas) {
+        LaplacianView lv = new LaplacianView(getView());
+        LaplacianController lc = new LaplacianController(lv);
+        lc.displayLaplacianWindow();
     }
 
     public void observe(CropListener cl) {
         cl.addObserver(new CropObserver());
+    }
+
+    public void observe(ImageProcessor.ResultObservable ro) {
+        ro.addObserver(new ImageProcessingObserver());
     }
 
     private class CropObserver implements Observer {
@@ -145,6 +153,14 @@ public class MainController {
             Processing.Crop c = new Processing.Crop(cur_canvas);
             BufferedImage new_image = c.doCrop(cl.getOrigX(), cl.getOrigY(), cl.getFinalX(), cl.getFinalY());
             view.addImage("UnsavedCrop", null, new_image, false);
+        }
+    }
+
+    private class ImageProcessingObserver implements Observer {
+
+        public void update(Observable obs, Object obj) {
+            ImageProcessor.ResultObservable ro = (ImageProcessor.ResultObservable) obs;
+            view.addImage(ro.getName(), null, ro.getImage(), false);
         }
     }
 }

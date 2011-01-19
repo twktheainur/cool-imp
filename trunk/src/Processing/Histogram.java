@@ -112,4 +112,5 @@ public class Histogram {
         }
         return histImage;
     }
+    
 }

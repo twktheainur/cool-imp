@@ -40,11 +40,7 @@ public class GaussianBlurView extends javax.swing.JFrame {
         bOk = new javax.swing.JButton();
         bCancel = new javax.swing.JButton();
         spSize = new javax.swing.JSpinner();
-        spFactor = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        spBias = new javax.swing.JSpinner();
         bPreview = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -62,7 +58,6 @@ public class GaussianBlurView extends javax.swing.JFrame {
             }
         });
 
-        bCancel.setIcon(null);
         bCancel.setMnemonic('C');
         bCancel.setText(resourceMap.getString("bCancel.text")); // NOI18N
         bCancel.setName("bCancel"); // NOI18N
@@ -75,20 +70,8 @@ public class GaussianBlurView extends javax.swing.JFrame {
         spSize.setModel(new javax.swing.SpinnerNumberModel(5, 5, 15, 1));
         spSize.setName("spSize"); // NOI18N
 
-        spFactor.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
-        spFactor.setName("spFactor"); // NOI18N
-
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
-
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
-        jLabel2.setName("jLabel2"); // NOI18N
-
-        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
-        jLabel3.setName("jLabel3"); // NOI18N
-
-        spBias.setModel(new javax.swing.SpinnerNumberModel());
-        spBias.setName("spBias"); // NOI18N
 
         bPreview.setMnemonic('P');
         bPreview.setText(resourceMap.getString("bPreview.text")); // NOI18N
@@ -104,43 +87,29 @@ public class GaussianBlurView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
+                        .addGap(14, 14, 14)
                         .addComponent(bPreview)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bOk)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bCancel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(spSize, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(spFactor, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(spBias, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(spSize, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(spFactor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(spBias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(spSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(spSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancel)
                     .addComponent(bOk, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,14 +144,6 @@ public class GaussianBlurView extends javax.swing.JFrame {
         return mainView;
     }
 
-    public int getBiasValue() {
-        return ((SpinnerNumberModel) spBias.getModel()).getNumber().intValue();
-    }
-
-    public int getFactorValue() {
-        return ((SpinnerNumberModel) spFactor.getModel()).getNumber().intValue();
-    }
-
     public int getSizeValue() {
         return ((SpinnerNumberModel) spSize.getModel()).getNumber().intValue();
     }
@@ -191,10 +152,6 @@ public class GaussianBlurView extends javax.swing.JFrame {
     private javax.swing.JButton bOk;
     private javax.swing.JButton bPreview;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JSpinner spBias;
-    private javax.swing.JSpinner spFactor;
     private javax.swing.JSpinner spSize;
     // End of variables declaration//GEN-END:variables
 }
