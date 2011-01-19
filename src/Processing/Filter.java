@@ -7,39 +7,43 @@ package Processing;
 import java.awt.image.BufferedImage;
 import Components.ImageCanvas;
 import Image.RGBColor;
+import Image.YUVColor;
 
-abstract public class Filter {
+abstract public class Filter extends ImageProcessor{
 
     private double[][] kernel;
     private int kernelWidth;
     private int kernelHeight;
-    private ImageCanvas canvas;
-    private double bias;
-    private double factor;
 
     public Filter(ImageCanvas canvas, int width, int height) {
-        this.canvas = canvas;
-        bias = 0.0;
-        factor = 1.0;
+        super(canvas);
         kernelHeight = height;
         kernelWidth = width;
         generateFilter();
     }
 
-    private BufferedImage convolve() {
+    protected BufferedImage convolveRGB() {
+        return convolve(getKernel(), getCanvas().getImage(), BufferedImage.TYPE_INT_RGB);
+    }
+
+    protected BufferedImage convolveY() {
+        return convolve(getKernel(), getCanvas().getImage(), BufferedImage.TYPE_BYTE_GRAY);
+    }
+
+    protected BufferedImage convolve(double[][] kernel, BufferedImage source, int type) {
         int x, y;
         int imX, imY;
-        BufferedImage source = canvas.getImage();
         int sourceWidth = source.getWidth();
         int sourceHeight = source.getHeight();
-        BufferedImage result = new BufferedImage(sourceWidth, sourceHeight, BufferedImage.TYPE_INT_RGB);
+        BufferedImage result = new BufferedImage(sourceWidth, sourceHeight, type);
         int krX, krY;
         double rval = 0.0, gval = 0.0, bval = 0.0;
+        double yval;
 
         double kernelTotal = 0.0;
         for (krX = 0; krX < kernelWidth; krX++) {
             for (krY = 0; krY < kernelHeight; krY++) {
-                kernelTotal +=kernel[krX][krY];
+                kernelTotal += kernel[krX][krY];
             }
         }
 
@@ -48,37 +52,46 @@ abstract public class Filter {
                 rval = 0.0;
                 gval = 0.0;
                 bval = 0.0;
+                yval = 0.0;
 
                 for (krX = 0; krX < kernelWidth; krX++) {
                     for (krY = 0; krY < kernelHeight; krY++) {
                         imX = (x - kernelWidth / 2 + krX + sourceWidth) % sourceWidth;
                         imY = (y - kernelHeight / 2 + krY + sourceHeight) % sourceHeight;
                         int rgb = source.getRGB(imX, imY);
-                        rval += RGBColor.extractR(rgb) * kernel[krX][krY];
-                        gval += RGBColor.extractG(rgb) * kernel[krX][krY];
-                        bval += RGBColor.extractB(rgb) * kernel[krX][krY];
+                        if (type == BufferedImage.TYPE_BYTE_GRAY) {
+                            yval += YUVColor.extractY(rgb) * kernel[krX][krY];
+                        } else {
+                            rval += RGBColor.extractR(rgb) * kernel[krX][krY];
+                            gval += RGBColor.extractG(rgb) * kernel[krX][krY];
+                            bval += RGBColor.extractB(rgb) * kernel[krX][krY];
+                        }
                     }
-                    int r = (int)(factor*(double)rval/kernelTotal + bias) ;
-                    int g = (int)(factor*(double)gval/kernelTotal + bias);
-                    int b = (int)(factor*(double)bval/kernelTotal + bias);
-                    result.setRGB(x, y, RGBColor.combineRGB(r, g, b));
+                    if (type == BufferedImage.TYPE_BYTE_GRAY) {
+                        int gs = (int) ((double) yval / kernelTotal);
+                        result.setRGB(x, y, RGBColor.combineRGB(gs, gs, gs));
+                    } else {
+                        int r = (int) ((double) rval / kernelTotal);
+                        int g = (int) ((double) gval / kernelTotal);
+                        int b = (int) ((double) bval / kernelTotal);
+                        result.setRGB(x, y, RGBColor.combineRGB(r, g, b));
+                    }
                 }
             }
+            setProgress((krX/kernelWidth)*100);
         }
 
         return result;
     }
 
+    
+
     public BufferedImage applyFilter() {
-        return convolve();
+        return convolveRGB();
     }
 
-    public void setBias(double bias) {
-        this.bias = bias;
-    }
-
-    public void setFactor(double factor) {
-        this.factor = factor;
+    public BufferedImage process(){
+        return applyFilter();
     }
 
     public double[][] getKernel() {

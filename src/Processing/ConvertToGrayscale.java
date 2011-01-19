@@ -6,6 +6,7 @@ package Processing;
 
 import Components.ImageCanvas;
 import Image.YUVColor;
+import Image.RGBColor;
 import java.awt.image.BufferedImage;
 
 public class ConvertToGrayscale {
@@ -26,7 +27,7 @@ public class ConvertToGrayscale {
             for (int y = 0; y < h; y++) {
                 int rgb = original.getRGB(x, y);
                 int gs = YUVColor.extractY(rgb);
-                int nrgb = 0xFF000000 + (gs << 16) + (gs << 8) + gs;
+                int nrgb = RGBColor.combineRGB(gs, gs, gs);
                 converted.setRGB(x, y,nrgb);
             }
         }

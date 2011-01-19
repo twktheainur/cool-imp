@@ -74,6 +74,8 @@ public class ImageCanvas extends JComponent {
     }
 
     public void setImage(BufferedImage image) {
+        System.out.print("Setting image to:");
+        System.out.println(image);
         this.image = image;
     }
 

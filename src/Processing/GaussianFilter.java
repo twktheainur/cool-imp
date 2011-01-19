@@ -12,6 +12,16 @@ public class GaussianFilter extends Filter {
         super(canvas, size, size);
     }
 
+    public void done(){
+        try{
+        getResultObservable().setImage(get(),"UnsavedGaussianFiltered");
+        } catch(Exception e){
+            System.out.println(e.getLocalizedMessage());
+            e.fillInStackTrace().printStackTrace();
+            System.out.println("Error, Gaussien filtering failed");
+        }
+    }
+
     protected void generateFilter() {
         double[][] kernel = new double[getKernelWidth()][getKernelHeight()];
         int radius = getKernelWidth() / 2;
@@ -20,7 +30,6 @@ public class GaussianFilter extends Filter {
             for (int y = 0; y < getKernelHeight(); y++) {
                 double dist = Math.sqrt((x-radius)*(x-radius) + (y-radius)*(y-radius));
                 kernel[x][y] = Math.exp(-dist*dist/a);
-                //kernel[x][y] = ((-x*x)/Math.exp(2))*((-y*y)/Math.exp(2));
             }
         }
         setKernel(kernel);

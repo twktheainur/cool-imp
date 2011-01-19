@@ -5,6 +5,7 @@
 import Components.ImageCanvas;
 import Image.ReaderFactory;
 import javax.swing.JButton;
+import javax.swing.JProgressBar;
 import javax.swing.JTabbedPane;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
@@ -110,6 +111,11 @@ public class MainView extends FrameView {
         return bCrop;
     }
 
+    public JProgressBar getProgressBar() {
+        return progressBar;
+    }
+
+
     public void setExclusiveActionInProgess(boolean exclusiveActionInProgess) {
         this.exclusiveActionInProgess = exclusiveActionInProgess;
     }
@@ -200,6 +206,7 @@ public class MainView extends FrameView {
         mFuse = new javax.swing.JMenuItem();
         filterMenu = new javax.swing.JMenu();
         mGaussBlur = new javax.swing.JMenuItem();
+        mLaplacian = new javax.swing.JMenuItem();
         colorsMenu = new javax.swing.JMenu();
         mPixelInf = new javax.swing.JMenuItem();
         mColorHistogram = new javax.swing.JMenuItem();
@@ -412,6 +419,17 @@ public class MainView extends FrameView {
         });
         filterMenu.add(mGaussBlur);
 
+        mLaplacian.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mLaplacian.setMnemonic('L');
+        mLaplacian.setText(resourceMap.getString("mLaplacian.text")); // NOI18N
+        mLaplacian.setName("mLaplacian"); // NOI18N
+        mLaplacian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mLaplacianActionPerformed(evt);
+            }
+        });
+        filterMenu.add(mLaplacian);
+
         menuBar.add(filterMenu);
 
         colorsMenu.setText(resourceMap.getString("colorsMenu.text")); // NOI18N
@@ -600,13 +618,22 @@ public class MainView extends FrameView {
     }//GEN-LAST:event_mColorHistogramActionPerformed
 
     private void mResizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mResizeActionPerformed
-        controller.resize();
+        if (getCurrentTabCanvas() != null || !exclusiveActionInProgess) {
+            controller.resize();
+        }
     }//GEN-LAST:event_mResizeActionPerformed
 
     private void mGaussBlurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGaussBlurActionPerformed
-        controller.applyGaussianBlur(getCurrentTabCanvas());
+        if (getCurrentTabCanvas() != null || !exclusiveActionInProgess) {
+            controller.applyGaussianBlur(getCurrentTabCanvas());
+        }
     }//GEN-LAST:event_mGaussBlurActionPerformed
 
+    private void mLaplacianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mLaplacianActionPerformed
+        if (getCurrentTabCanvas() != null || !exclusiveActionInProgess) {
+            controller.applyLaplacian(getCurrentTabCanvas());
+        }
+    }//GEN-LAST:event_mLaplacianActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bClose;
     private javax.swing.JButton bCrop;
@@ -625,6 +652,7 @@ public class MainView extends FrameView {
     private javax.swing.JMenuItem mCrop;
     private javax.swing.JMenuItem mFuse;
     private javax.swing.JMenuItem mGaussBlur;
+    private javax.swing.JMenuItem mLaplacian;
     private javax.swing.JMenuItem mOpen;
     private javax.swing.JMenuItem mPixelInf;
     private javax.swing.JMenuItem mResize;
