@@ -115,7 +115,7 @@ public class MainController {
 
     public void resize() {
         ResizeView resizeView = new ResizeView(view);
-        ResizeController resizeController = new ResizeController(resizeView);
+        ResizeController resizeController = new ResizeController(resizeView,this);
         resizeController.displayResizeWindow();
     }
 
@@ -133,8 +133,20 @@ public class MainController {
 
     public void applyLaplacian(ImageCanvas current_canvas) {
         LaplacianView lv = new LaplacianView(getView());
-        LaplacianController lc = new LaplacianController(lv);
+        LaplacianController lc = new LaplacianController(lv,this);
         lc.displayLaplacianWindow();
+    }
+
+    public void applyMean(ImageCanvas current_canvas){
+        MeanView mv = new MeanView(getView());
+        MeanController mc = new MeanController(mv, this);
+        mc.displayMeanWindow();
+    }
+
+    public void applyGradient(ImageCanvas current_canvas){
+        GradientView gv = new GradientView(getView());
+        GradientController gc = new GradientController(gv, this);
+        gc.displayGradientWindow();
     }
 
     public void observe(CropListener cl) {
@@ -160,7 +172,12 @@ public class MainController {
 
         public void update(Observable obs, Object obj) {
             ImageProcessor.ResultObservable ro = (ImageProcessor.ResultObservable) obs;
-            view.addImage(ro.getName(), null, ro.getImage(), false);
+            if(!ro.isPreview()){
+                view.addImage(ro.getName(), null, ro.getImage(), false);
+            } else{
+                view.getCurrentTabCanvas().setImage(ro.getImage());
+                view.getCurrentTabCanvas().repaint();
+            }
         }
     }
 }

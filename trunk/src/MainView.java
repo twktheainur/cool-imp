@@ -96,6 +96,7 @@ public class MainView extends FrameView {
                 }
             }
         });
+        progressBar.setVisible(true);
     }
 
     public ImageCanvas getCurrentTabCanvas() {
@@ -207,6 +208,9 @@ public class MainView extends FrameView {
         filterMenu = new javax.swing.JMenu();
         mGaussBlur = new javax.swing.JMenuItem();
         mLaplacian = new javax.swing.JMenuItem();
+        mMean = new javax.swing.JMenuItem();
+        mGradient = new javax.swing.JMenuItem();
+        mCustom = new javax.swing.JMenuItem();
         colorsMenu = new javax.swing.JMenu();
         mPixelInf = new javax.swing.JMenuItem();
         mColorHistogram = new javax.swing.JMenuItem();
@@ -215,7 +219,6 @@ public class MainView extends FrameView {
         helpMenu = new javax.swing.JMenu();
         mAbout = new javax.swing.JMenuItem();
         statusPanel = new javax.swing.JPanel();
-        javax.swing.JSeparator statusPanelSeparator = new javax.swing.JSeparator();
         statusMessageLabel = new javax.swing.JLabel();
         statusAnimationLabel = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
@@ -305,7 +308,7 @@ public class MainView extends FrameView {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imagesTab, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
+                .addComponent(imagesTab, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE))
         );
 
         menuBar.setName("menuBar"); // NOI18N
@@ -409,6 +412,7 @@ public class MainView extends FrameView {
         filterMenu.setName("filterMenu"); // NOI18N
 
         mGaussBlur.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mGaussBlur.setMnemonic('G');
         mGaussBlur.setText(resourceMap.getString("mGaussBlur.text")); // NOI18N
         mGaussBlur.setToolTipText(resourceMap.getString("mGaussBlur.toolTipText")); // NOI18N
         mGaussBlur.setName("mGaussBlur"); // NOI18N
@@ -429,6 +433,29 @@ public class MainView extends FrameView {
             }
         });
         filterMenu.add(mLaplacian);
+
+        mMean.setMnemonic('M');
+        mMean.setText(resourceMap.getString("mMean.text")); // NOI18N
+        mMean.setName("mMean"); // NOI18N
+        mMean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mMeanActionPerformed(evt);
+            }
+        });
+        filterMenu.add(mMean);
+
+        mGradient.setText(resourceMap.getString("mGradient.text")); // NOI18N
+        mGradient.setName("mGradient"); // NOI18N
+        mGradient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mGradientActionPerformed(evt);
+            }
+        });
+        filterMenu.add(mGradient);
+
+        mCustom.setText(resourceMap.getString("mCustom.text")); // NOI18N
+        mCustom.setName("mCustom"); // NOI18N
+        filterMenu.add(mCustom);
 
         menuBar.add(filterMenu);
 
@@ -491,8 +518,6 @@ public class MainView extends FrameView {
 
         statusPanel.setName("statusPanel"); // NOI18N
 
-        statusPanelSeparator.setName("statusPanelSeparator"); // NOI18N
-
         statusMessageLabel.setName("statusMessageLabel"); // NOI18N
 
         statusAnimationLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -504,26 +529,23 @@ public class MainView extends FrameView {
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
-            .addGroup(statusPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(statusMessageLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 500, Short.MAX_VALUE)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statusPanelLayout.createSequentialGroup()
+                .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusAnimationLabel)
+                .addComponent(statusMessageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(statusAnimationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         statusPanelLayout.setVerticalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(statusPanelLayout.createSequentialGroup()
-                .addComponent(statusPanelSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(statusMessageLabel)
-                    .addComponent(statusAnimationLabel)
-                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3))
+            .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statusPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(statusAnimationLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(statusMessageLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         setComponent(mainPanel);
@@ -634,6 +656,19 @@ public class MainView extends FrameView {
             controller.applyLaplacian(getCurrentTabCanvas());
         }
     }//GEN-LAST:event_mLaplacianActionPerformed
+
+    private void mMeanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mMeanActionPerformed
+        if (getCurrentTabCanvas() != null || !exclusiveActionInProgess) {
+            controller.applyMean(getCurrentTabCanvas());
+        }
+    }//GEN-LAST:event_mMeanActionPerformed
+
+    private void mGradientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientActionPerformed
+         if (getCurrentTabCanvas() != null || !exclusiveActionInProgess) {
+            controller.applyGradient(getCurrentTabCanvas());
+        }
+    }//GEN-LAST:event_mGradientActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bClose;
     private javax.swing.JButton bCrop;
@@ -650,9 +685,12 @@ public class MainView extends FrameView {
     private javax.swing.JMenuItem mColorHistogram;
     private javax.swing.JMenuItem mConvertToGrayscale;
     private javax.swing.JMenuItem mCrop;
+    private javax.swing.JMenuItem mCustom;
     private javax.swing.JMenuItem mFuse;
     private javax.swing.JMenuItem mGaussBlur;
+    private javax.swing.JMenuItem mGradient;
     private javax.swing.JMenuItem mLaplacian;
+    private javax.swing.JMenuItem mMean;
     private javax.swing.JMenuItem mOpen;
     private javax.swing.JMenuItem mPixelInf;
     private javax.swing.JMenuItem mResize;

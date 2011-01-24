@@ -1,13 +1,16 @@
 
 import Components.ImageCanvas;
 
-public class LaplacianView extends javax.swing.JFrame {
+public class GradientView extends javax.swing.JFrame {
 
     private MainView mainView;
     private ImageCanvas canvas;
-    private LaplacianController controller;
+    private GradientController controller;
 
-    public LaplacianView(MainView mv) {
+    public static int METHOD_SOBEL = 0;
+    public static int METHOD_PREWITT = 1;
+
+    public GradientView(MainView mv) {
         initComponents();
         this.mainView = mv;
         canvas = mv.getCurrentTabCanvas();
@@ -16,7 +19,7 @@ public class LaplacianView extends javax.swing.JFrame {
         buttonGroup1.setSelected(rb33kernel.getModel(),true);
     }
 
-    public void setController(LaplacianController controller) {
+    public void setController(GradientController controller) {
         this.controller = controller;
     }
 
@@ -37,9 +40,11 @@ public class LaplacianView extends javax.swing.JFrame {
         bPreview = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         cbGrayscale = new javax.swing.JCheckBox();
+        spThreshold = new javax.swing.JSpinner();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(Main.class).getContext().getResourceMap(LaplacianView.class);
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(Main.class).getContext().getResourceMap(GradientView.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
         setResizable(false);
@@ -91,6 +96,11 @@ public class LaplacianView extends javax.swing.JFrame {
             }
         });
 
+        spThreshold.setName("spThreshold"); // NOI18N
+
+        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
+        jLabel4.setName("jLabel4"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,16 +114,25 @@ public class LaplacianView extends javax.swing.JFrame {
                         .addComponent(bOk)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bCancel))
-                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rb55kernel)
-                            .addComponent(rb33kernel))
-                        .addGap(18, 18, 18)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbGrayscale)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rb55kernel)
+                                    .addComponent(rb33kernel))
+                                .addGap(22, 22, 22)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(spThreshold, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbGrayscale)))))
+                .addContainerGap(16, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,8 +145,13 @@ public class LaplacianView extends javax.swing.JFrame {
                         .addComponent(rb33kernel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rb55kernel))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbGrayscale))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(spThreshold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbGrayscale))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bPreview)
@@ -140,24 +164,28 @@ public class LaplacianView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-    controller.cancelLaplacian();
+    controller.cancelGradient();
 }//GEN-LAST:event_bCancelActionPerformed
 
     private void bOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOkActionPerformed
-    controller.applyLapacian();
+    controller.applyGradient();
 }//GEN-LAST:event_bOkActionPerformed
 
-    public int getSelectedSize(){
+    public int getSelectedMethod(){
         if(buttonGroup1.getSelection().equals(rb33kernel.getModel())){
-            return 3;
+            return METHOD_SOBEL;
         }
         else{
-            return 5;
+            return METHOD_PREWITT;
         }
     }
 
+    public boolean isGrayscale(){
+        return cbGrayscale.isSelected();
+    }
+
     private void bPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPreviewActionPerformed
-    controller.previewLaplacian();
+    controller.previewGradient();
 }//GEN-LAST:event_bPreviewActionPerformed
 
     private void cbGrayscaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbGrayscaleActionPerformed
@@ -179,8 +207,10 @@ public class LaplacianView extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox cbGrayscale;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JRadioButton rb33kernel;
     private javax.swing.JRadioButton rb55kernel;
+    private javax.swing.JSpinner spThreshold;
     // End of variables declaration//GEN-END:variables
 }

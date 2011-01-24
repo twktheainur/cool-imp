@@ -26,6 +26,10 @@ public class YUVColor {
         convertRGB(r, g, b);
     }
 
+    public YUVColor(){
+        y=0;u=0;v=0;
+    }
+
     private void convertRGB(int r, int g, int b) {
         y = YUVColor.extractY(r, g, b);
         u = YUVColor.extractU(r, g, b);

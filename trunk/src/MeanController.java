@@ -1,43 +1,34 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author twk
- */
 import java.awt.image.BufferedImage;
-import Processing.GaussianFilter;
+import Processing.MeanFilter;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 
+public class MeanController implements PropertyChangeListener {
 
-public class GaussianBlurController implements PropertyChangeListener {
-
-    private GaussianBlurView view;
+    private MeanView view;
     private MainController mainController;
     private BufferedImage original;
 
-    public GaussianBlurController(GaussianBlurView view, MainController mc) {
+    public MeanController(MeanView view, MainController mc) {
         this.view = view;
         view.setController(this);
         mainController = mc;
     }
 
-    public void previewGaussianBlur() {
+    public void previewMean() {
         if (original == null) {
             original = view.getCanvas().getImage();
         } else {
             view.getCanvas().setImage(original);
         }
-        GaussianFilter gbf = new GaussianFilter(view.getCanvas(), view.getSizeValue(),this);
-         mainController.observe(gbf.getResultObservable());
-         gbf.startProcess(true);
-         
+        MeanFilter mf = new MeanFilter(view.getCanvas(), view.getSizeValue(), this);
+        mainController.observe(mf.getResultObservable());
+        mf.startProcess(true);
+
     }
 
-    public void cancelGaussianBlur() {
+    public void cancelMean() {
         if (original != null) {
             view.getCanvas().setImage(original);
             view.getCanvas().repaint();
@@ -45,17 +36,17 @@ public class GaussianBlurController implements PropertyChangeListener {
         }
     }
 
-    public void applyGaussianBlur() {
-        if(original!=null){
+    public void applyMean() {
+        if (original != null) {
             view.getCanvas().setImage(original);
         }
-        GaussianFilter gbf = new GaussianFilter(view.getCanvas(), view.getSizeValue(),this);
-        mainController.observe(gbf.getResultObservable());
-        gbf.startProcess(false);
+        MeanFilter mf = new MeanFilter(view.getCanvas(), view.getSizeValue(), this);
+        mainController.observe(mf.getResultObservable());
+        mf.startProcess(false);
         view.dispose();
     }
 
-    public void displayBlurWindow() {
+    public void displayMeanWindow() {
         view.setVisible(true);
     }
 

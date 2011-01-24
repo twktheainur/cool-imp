@@ -5,21 +5,18 @@
 package Processing;
 
 import Components.ImageCanvas;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class GaussianFilter extends Filter {
 
-    public GaussianFilter(ImageCanvas canvas, int size) {
+    public GaussianFilter(ImageCanvas canvas, int size,PropertyChangeListener pcl) {
         super(canvas, size, size);
+        this.addPropertyChangeListener(pcl);
     }
 
-    public void done(){
-        try{
-        getResultObservable().setImage(get(),"UnsavedGaussianFiltered");
-        } catch(Exception e){
-            System.out.println(e.getLocalizedMessage());
-            e.fillInStackTrace().printStackTrace();
-            System.out.println("Error, Gaussien filtering failed");
-        }
+    protected String getGeneratedImageString(){
+        return "UnsavedGaussianFiltered";
     }
 
     protected void generateFilter() {
