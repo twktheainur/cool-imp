@@ -5,23 +5,17 @@
 package Processing;
 
 import Components.ImageCanvas;
+import java.beans.PropertyChangeListener;
 
-/**
- *
- * @author twk
- */
 public class MeanFilter extends Filter {
 
-    public MeanFilter(ImageCanvas canvas, int size) {
+    public MeanFilter(ImageCanvas canvas, int size,PropertyChangeListener plc) {
         super(canvas, size, size);
+        addPropertyChangeListener(plc);
     }
 
-    public void done() {
-        try {
-            getResultObservable().setImage(get(), "UnsavedMeanFiltered");
-        } catch (Exception e) {
-            System.out.println("Error, filtering failed");
-        }
+    protected String getGeneratedImageString(){
+        return "UnsavedMeanFiltered";
     }
 
     protected void generateFilter() {

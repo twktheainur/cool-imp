@@ -7,23 +7,35 @@ package Processing;
 import Components.ImageCanvas;
 import Image.RGBColor;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeListener;
 
 /**
  *
  * @author twk
  */
-public class FuseImages {
+public class FuseImages extends ImageProcessor{
 
     private ImageCanvas canvas_1;
     private ImageCanvas canvas_2;
     private int weight_1;
     private int weight_2;
 
-    public FuseImages(ImageCanvas canvas_1, ImageCanvas canvas_2, int weight_1, int weight_2) {
+    public FuseImages(ImageCanvas canvas_1, ImageCanvas canvas_2, int weight_1, int weight_2, PropertyChangeListener plc)
+    {
+        super(canvas_1);
         this.canvas_1 = canvas_1;
         this.canvas_2 = canvas_2;
         this.weight_1 = weight_1;
         this.weight_2 = weight_2;
+
+    }
+
+    protected String getGeneratedImageString(){
+        return "UnsavedFusedImage";
+    }
+
+    public BufferedImage process(){
+        return doFuseImages();
     }
 
     public BufferedImage doFuseImages() {
@@ -40,10 +52,10 @@ public class FuseImages {
         int fh = h_1;
 
         if (area1 > area2) {
-            Resize resizer = new Resize(canvas_2);
+            Resize resizer = new Resize(canvas_2,w_1,h_2,null);
             img_2 = resizer.doResize(w_1, h_1);
         } else if (area1 < area2) {
-            Resize resizer = new Resize(canvas_2);
+            Resize resizer = new Resize(canvas_1,w_2,h_2,null);
             img_1 = resizer.doResize(w_2, h_2);
             fw = w_2;
             fh = h_2;

@@ -14,11 +14,15 @@ abstract public class Filter extends ImageProcessor{
     private double[][] kernel;
     private int kernelWidth;
     private int kernelHeight;
+    private double progressFactor;
+    private int progressOffset;
 
     public Filter(ImageCanvas canvas, int width, int height) {
         super(canvas);
         kernelHeight = height;
         kernelWidth = width;
+        progressFactor = 1.0;
+        progressOffset = 0;
         generateFilter();
     }
 
@@ -78,10 +82,26 @@ abstract public class Filter extends ImageProcessor{
                     }
                 }
             }
-            setProgress((krX/kernelWidth)*100);
+            setProgress((int)(progressFactor*((double)x/(double)sourceWidth)*100)+progressOffset);
         }
 
         return result;
+    }
+
+    public double getProgressFactor() {
+        return progressFactor;
+    }
+
+    public void setProgressFactor(double progressFactor) {
+        this.progressFactor = progressFactor;
+    }
+
+    public int getProgressOffset() {
+        return progressOffset;
+    }
+
+    public void setProgressOffset(int progressOffset) {
+        this.progressOffset = progressOffset;
     }
 
     

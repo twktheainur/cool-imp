@@ -5,13 +5,22 @@ import Image.RGBColor;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.Image;
+import java.beans.PropertyChangeListener;
 
-public class Resize {
+public class Resize extends ImageProcessor{
 
-    private ImageCanvas canvas;
+    private int newWidth;
+    private int newHeight;
 
-    public Resize(ImageCanvas canvas) {
-        this.canvas = canvas;
+    public Resize(ImageCanvas canvas, int neww, int newh,PropertyChangeListener pcl) {
+        super(canvas);
+        newWidth = neww;
+        newHeight = newh;
+        addPropertyChangeListener(pcl);
+    }
+
+    protected String getGeneratedImageString(){
+        return "UnsavedResizedImage";
     }
 
     private Color getRGBBilinear(int x, int y) {
@@ -19,7 +28,7 @@ public class Resize {
         int dx, dy;
         int r0, g0, b0, r1, b1, g1, r2, b2, g2, r3, b3, g3;
         int r, g, b;
-        BufferedImage img = canvas.getImage();
+        BufferedImage img = getCanvas().getImage();
         int w = img.getWidth();
         int h = img.getHeight();
         x0 = (int) Math.floor(x);
@@ -78,7 +87,7 @@ public class Resize {
         int x;
         int y;
         double xsize = 1.0, ysize = 1.0;
-        BufferedImage image = canvas.getImage();
+        BufferedImage image = getCanvas().getImage();
 
         for (y = (int) Math.floor(y0); y < (int) Math.ceil(y1); y++) {
             double size = xsize;
@@ -112,10 +121,10 @@ public class Resize {
     }
 
     public BufferedImage doResize(int neww, int newh) {
-        int w = canvas.getImage().getWidth();
-        int h = canvas.getImage().getHeight();
-        Image img = canvas.getImage().getScaledInstance(neww, newh,Image.SCALE_AREA_AVERAGING);
-        return BufferedImageConverter.createBufferedImage(img, canvas);
+        int w = getCanvas().getImage().getWidth();
+        int h = getCanvas().getImage().getHeight();
+        //Image img = canvas.getImage().getScaledInstance(neww, newh,Image.SCALE_AREA_AVERAGING);
+        //return BufferedImageConverter.createBufferedImage(img, canvas);
         /*if (newh < h && neww < w) {
             return doReduce(neww, newh);
         } else if (neww < w) {
@@ -127,17 +136,20 @@ public class Resize {
         } else {
             return doBilinearStrech(neww, newh);
         }*/
+        return doBilinearStrech(neww, newh);
+    }
 
-
+    public BufferedImage process(){
+        return doResize(newWidth, newHeight);
     }
 
     public BufferedImage doReduce(int neww, int newh) {
-        int w = canvas.getImage().getWidth();
-        int h = canvas.getImage().getHeight();
+        int w = getCanvas().getImage().getWidth();
+        int h = getCanvas().getImage().getHeight();
         double x_ratio = neww / (double) w;
         double y_ratio = newh / (double) h;
-        BufferedImage original = canvas.getImage();
-        BufferedImage resized = new BufferedImage(neww, newh, canvas.getImage().getType());
+        BufferedImage original = getCanvas().getImage();
+        BufferedImage resized = new BufferedImage(neww, newh, getCanvas().getImage().getType());
         System.out.println(Double.toString(x_ratio) + "::" + Double.toString(y_ratio));
         for (int x = 0; x < neww; x++) {
             for (int y = 0; y < newh; y++) {
@@ -152,18 +164,19 @@ public class Resize {
                     resized.setRGB(x, y, c.getRGB());
                 }
             }
+            setProgress((int)(((double)x/(double)neww)*100));
         }
         return resized;
     }
 
     public BufferedImage doBilinearStrech(int neww, int newh) {
-        int w = canvas.getImage().getWidth();
-        int h = canvas.getImage().getHeight();
+        int w = getCanvas().getImage().getWidth();
+        int h = getCanvas().getImage().getHeight();
         double x_ratio = neww / (double) w;
         double y_ratio = newh / (double) h;
         double px, py;
-        BufferedImage original = canvas.getImage();
-        BufferedImage resized = new BufferedImage(neww, newh, canvas.getImage().getType());
+        BufferedImage original = getCanvas().getImage();
+        BufferedImage resized = new BufferedImage(neww, newh, getCanvas().getImage().getType());
         System.out.println(Double.toString(x_ratio) + "::" + Double.toString(y_ratio));
         for (int x = 0; x < neww; x++) {
             for (int y = 0; y < newh; y++) {
@@ -175,6 +188,7 @@ public class Resize {
                 }
 
             }
+            setProgress((int)(((double)x/(double)neww)*100));
         }
         return resized;
     }

@@ -5,22 +5,26 @@ import java.io.File;
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
-public class ResizeController {
+
+public class ResizeController implements PropertyChangeListener {
 
     private ResizeView view;
-
-    public ResizeController(ResizeView view) {
+    private MainController mainController;
+    public ResizeController(ResizeView view, MainController mc) {
         this.view = view;
+        mainController = mc;
         view.setController(this);
     }
 
     public void applyResize() {
         int newWidth = view.getWidthValue();
         int newHeight = view.getHeightValue();
-        Resize resizer = new Resize(view.getCanvas());
-        BufferedImage newImage = resizer.doResize(newWidth, newHeight);
-        view.getMainView().addImage("UnsavedResizedImage", new File(""), newImage, true);
+        Resize resizer = new Resize(view.getCanvas(),newWidth,newHeight,this);
+        mainController.observe(resizer.getResultObservable());
+        resizer.startProcess(false);
         view.dispose();
     }
 
@@ -40,5 +44,12 @@ public class ResizeController {
 
     public ResizeView getView() {
         return view;
+    }
+
+     public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("progress")) {
+            int progress = (Integer) evt.getNewValue();
+            view.getMainView().getProgressBar().setValue(progress);
+        }
     }
 }

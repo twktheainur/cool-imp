@@ -10,20 +10,29 @@ import java.awt.image.BufferedImage;
  * @author twk
  */
 import Components.ImageCanvas;
+import java.beans.PropertyChangeListener;
 
 public class LaplacianFilter extends Filter {
 
-    public LaplacianFilter(ImageCanvas canvas, int size) {
+    private boolean grayscale;
+
+    public LaplacianFilter(ImageCanvas canvas, int size,PropertyChangeListener plc) {
         super(canvas, size, size);
+        addPropertyChangeListener(plc);
     }
 
-    public void done() {
-        try {
-            getResultObservable().setImage(get(), "UnsavedLaplacianFiltered");
-        } catch (Exception e) {
-            System.out.println("Error, filtering failed");
-        }
+    protected String getGeneratedImageString(){
+        return "UnsavedGaussianFiltered";
     }
+
+    public boolean isGrayscale() {
+        return grayscale;
+    }
+
+    public void setGrayscale(boolean grayscale) {
+        this.grayscale = grayscale;
+    }
+    
 
     protected void generateFilter() {
         double[][] kernel;
@@ -51,7 +60,13 @@ public class LaplacianFilter extends Filter {
         setKernel(kernel);
     }
 
+    
+
     public BufferedImage applyFilter() {
-        return convolveY();
+        if(isGrayscale()){
+            return convolveY();
+        } else {
+            return convolveRGB();
+        }
     }
 }
