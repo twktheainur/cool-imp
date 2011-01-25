@@ -45,7 +45,7 @@ public class Histogram {
     int getComponent3(int x, int y) {
         int rgb = canvas.getImage().getRGB(x, y);
         if (mode == RGB_MODE) {
-            return RGBColor.extractR(rgb);
+            return RGBColor.extractB(rgb);
         } else {
             return YUVColor.extractV(rgb);
         }
