@@ -1,0 +1,118 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[cp1250]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+\textsc{\LARGE M1 MOSIG - Image Project}\\[1.5cm]
+
+\HRule \\[0.6cm]
+{ \huge \bfseries COOL-IMP}\\[0.4cm]
+\HRule \\[3.5cm]
+
+\end{center}
+
+\begin{minipage}{0.5\textwidth}
+\begin{flushleft} \large
+\emph{Authors:}\\
+Nataliya \textsc{Kos'myna}\\
+Emilia \textsc{Szopa}\\
+Andon \textsc{Tchechmedjiev}
+\end{flushleft}
+\end{minipage}
+
+\vfill
+\begin{center}
+Grenoble, \today
+\end{center}
+\end{titlepage}
+
+
+
+\section{Introduction}
+This document describes a software for image edition and manipulation that was developed for the Programming Project by three students of M1 MoSIG.\\
+The program, called COOL-IMP is a lightweight piece of software designed in Java language, using NetBeans 7.0.1 as a programming environment. While developing COOL-IMP we shared all the data among ourselves using Subversion repository for version control that we created at Google Code project hosting platform for our program. It provides SVN and different tools that are quite helpful in development. It is licensed under the GNU General Public Lincence v3.
+
+\section{Technical specification}
+As we used Java programming language, we decided to use Swing to create graphical user interface for our program. NetBeans provided a Swing editor.
+
+
+\section{Functionalities}
+
+\subsection{Basic functionalities}
+
+\begin{enumerate}
+    \item Reading and writing the images in standard formats (gif, jpg, bmp, png) was accomplished by using image reading library ImageIO, which is integrated into the standard Java distribution. It is very easy to use and it cooperates well with the Swing library. 
+
+    \item Software interface was created by using Swing GUI for Java programs. To display the images we used Abstract Window Toolkit's BufferedImage class as a data structure. It supplied us with a simple and efficient way to edit images.
+
+	 \item Cropping function was introduced by a simple piece of code. Given the points bounding the required fragment of the original image, we receive a new image (in a separate tab) that fits the needed restrictions.
+
+	 \item Pixel information is given in separate window which opens after choosing the appropriate option from the toolbar. To find pixel information user has to point the mouse onto this pixel. The default setting of this option is RGB. But if user requires information in YUV format, he can change the format using the appropriate function from the toolbar. It will automatically change the values read in the pixel information window.\\
+To change the format from RGB to YUV (actually, it was Y'CbCr), we used the formula:
+
+$$Y'=16+\frac{65.738\cdot R'_D}{256}+\frac{129.057\cdot G'_D}{256}+\frac{25.064\cdot B'_D}{256}$$
+$$C_B=128+\frac{-37.945\cdot R'_D}{256}-\frac{74.494\cdot G'_D}{256}+\frac{112.439\cdot B'_D}{256}$$
+$$C_R=128+\frac{112.439\cdot R'_D}{256}-\frac{94.154\cdot G'_D}{256}-\frac{18.285\cdot B'_D}{256}$$
+
+Where R'dG'dB'd is digital representation of RGB (8 bits per sample).
+
+	 \item Color histogram can also be shown in one of the two formats: RGB or YUV. The three histograms open in a separate window: in the first case it will be three histograms corresponding to color channels, in the second case the first histogram will show the luminance and the two others will show the chrominance components.
+
+	 \item Color to grayscale transformation is achieved by creating a new image with one color channel and setting the values of pixels to those of their luminance in the original image.
+
+	 \item Gaussian blur was the first filter we have implemented. It is a filter that can be used us to blur an image in order to remove noise and reduce detail. In practice, applying this filter means convolving the image with the gaussian function in 2D:
+$$G(x,y)=\frac{1}{2\pi\sigma^2}e^{-\frac{x^{2}+y^{2}}{2\sigma^2}}$$
+where $x$ is the distance of point from the horizontal axis, $y$ is the distance from vertical axis and $\sigma$ is the standard deviation of the Gaussian distribution.\\
+Thanks to the formula provided, we are able to apply different sized filters. Our program allows user to choose the size from the range 5-15.
+
+	 \item Fusion (later)
+
+\end{enumerate}
+
+\subsection{Intermediate functionalities}
+
+\begin{enumerate}
+
+\item Image resizing was divided into two parts. One was the question of dealing with decreasing the image. We accomplished it by averaging the pixel value of neighbouring pixels. That way we can save the information stored in the neigbouring pixels, instead of loosing them, if we were to simply skip them. The second problem was how to increase the image while preserving smoothness of the image. It was achieved by usage of linear interpolation of pixel values. 
+
+\item Histogram modification
+
+\item Finally, we have implemanted several other filers beside the Gaussian one. Similarly to the previous case, the process of filtering comes down to convolving the image with a kernel that corresponds to the user-required filter. In our program, we implemented the following filters:
+\begin{itemize}
+    \item Laplacian filter, which is used to hide discontinuites. The user can choose between two possible sizes of the kernel. 3x3 kernel is:
+$$\left[\begin{array}{ccc} 0 & 1 & 0\\
+1 &-4 & 1\\ 0 & 1 & 0 
+\end{array}\right],$$
+and the 5x5 kernel is:
+$$\left[\begin{array}{ccccc} -1 & -1 & -1 & -1 & -1\\
+-1 & -1 & -1 & -1 & -1\\
+-1 & -1 & 24 & -1 & -1\\
+-1 & -1 & -1 & -1 & -1\\
+-1 & -1 & -1 & -1 & -1\\
+\end{array}\right].$$
+	 \item Mean filter is similar to Gaussian, as it achieves the same goal: blurres the image. However, the kernel elements all have the same values. Its characteristics are defined by a kernel width and height. When the size of the kernel increases the smoothing effect increases. For example, we can desribe 3x3 kernel as:
+$$\left[\begin{array}{ccc} \frac{1}{9} & \frac{1}{9} & \frac{1}{9}\\
+\frac{1}{9} & \frac{1}{9} & \frac{1}{9}\\ \frac{1}{9} & \frac{1}{9} & \frac{1}{9} 
+\end{array}\right]$$
+The user can choose size of the kernel among the range 5-15. In any case, with a $kxk$ kernel, it will have $k\cdot$ elements of value $\frac{1}{k\cdot k}$.
+	 \item Gradient
+	 \item User defined
+
+\end{itemize}
+
+\end{enumerate}
+
+
+\section{Conclusion}
+
+During our work on this programming project we have learned a lot about image processing and its mechanisms. Thanks to this exercise we have deepened our understanding of the nature of images, as well as the various operations that can be applied to them. While we have researched this topic we found many possible applications of image processing softwares like ours. The ability of manipulating the images is very important in a great number of real-life situations. \\
+Also, in the course of implementing the code we considered many mathematical aspects of image processing. Implementing them made us aware of the enormous mathematical background that supports image processing.
+
+\end{document}

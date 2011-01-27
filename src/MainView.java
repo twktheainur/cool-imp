@@ -193,6 +193,7 @@ public class MainView extends FrameView {
         bClose = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         bCrop = new javax.swing.JButton();
+        bResize = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         mOpen = new javax.swing.JMenuItem();
@@ -293,6 +294,20 @@ public class MainView extends FrameView {
         });
         toolbar.add(bCrop);
 
+        bResize.setIcon(resourceMap.getIcon("bResize.icon")); // NOI18N
+        bResize.setText(resourceMap.getString("bResize.text")); // NOI18N
+        bResize.setToolTipText(resourceMap.getString("bResize.toolTipText")); // NOI18N
+        bResize.setFocusable(false);
+        bResize.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bResize.setName("bResize"); // NOI18N
+        bResize.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bResize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bResizeActionPerformed(evt);
+            }
+        });
+        toolbar.add(bResize);
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -389,6 +404,7 @@ public class MainView extends FrameView {
         imageMenu.add(mCrop);
 
         mResize.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mResize.setIcon(resourceMap.getIcon("mResize.icon")); // NOI18N
         mResize.setText(resourceMap.getString("mResize.text")); // NOI18N
         mResize.setToolTipText(resourceMap.getString("mResize.toolTipText")); // NOI18N
         mResize.setName("mResize"); // NOI18N
@@ -689,10 +705,16 @@ public class MainView extends FrameView {
             controller.fuseImages(getCurrentTabCanvas());
         }
     }//GEN-LAST:event_mFuseActionPerformed
+
+    private void bResizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResizeActionPerformed
+        mResizeActionPerformed(evt);
+    }//GEN-LAST:event_bResizeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bClose;
     private javax.swing.JButton bCrop;
     private javax.swing.JButton bOpen;
+    private javax.swing.JButton bResize;
     private javax.swing.JButton bSave;
     private javax.swing.JMenu colorsMenu;
     private javax.swing.JMenu filterMenu;
