@@ -7,19 +7,19 @@ import java.awt.Color;
 import java.awt.Image;
 import java.beans.PropertyChangeListener;
 
-public class Resize extends ImageProcessor{
+public class Resize extends ImageProcessor {
 
     private int newWidth;
     private int newHeight;
 
-    public Resize(ImageCanvas canvas, int neww, int newh,PropertyChangeListener pcl) {
+    public Resize(ImageCanvas canvas, int neww, int newh, PropertyChangeListener pcl) {
         super(canvas);
         newWidth = neww;
         newHeight = newh;
         addPropertyChangeListener(pcl);
     }
 
-    protected String getGeneratedImageString(){
+    protected String getGeneratedImageString() {
         return "UnsavedResizedImage";
     }
 
@@ -111,7 +111,7 @@ public class Resize extends ImageProcessor{
             bsum = bsum + RGBColor.extractB(image.getRGB(x, y)) * (int) size;
             System.out.println(size);
             System.out.println(area);
-            area = area+(int)size;
+            area = area + (int) size;
         }
         return new Color(rsum / area, gsum / area, bsum / area);
     }
@@ -127,20 +127,20 @@ public class Resize extends ImageProcessor{
         //return BufferedImageConverter.createBufferedImage(img, canvas);
 
         /*if (newh < h && neww < w) {
-            return doReduce(neww, newh);
+        return doReduce(neww, newh);
         } else if (neww < w) {
-            BufferedImage tmp = doBilinearStrech(w, newh);
-            return doReduce(neww, newh);
+        BufferedImage tmp = doBilinearStrech(w, newh);
+        return doReduce(neww, newh);
         } else if (newh < h) {
-            BufferedImage tmp = doBilinearStrech(neww, h);
-            return doReduce(neww, newh);
+        BufferedImage tmp = doBilinearStrech(neww, h);
+        return doReduce(neww, newh);
         } else {
-            return doBilinearStrech(neww, newh);
+        return doBilinearStrech(neww, newh);
         }*/
         return doBilinearStrech(neww, newh);
     }
 
-    public BufferedImage process(){
+    public BufferedImage process() {
         return doResize(newWidth, newHeight);
     }
 
@@ -150,22 +150,27 @@ public class Resize extends ImageProcessor{
         double x_ratio = neww / (double) w;
         double y_ratio = newh / (double) h;
         BufferedImage original = getCanvas().getImage();
-        BufferedImage resized = new BufferedImage(neww, newh, getCanvas().getImage().getType());
+        BufferedImage resized;
+        if (getCanvas().getImage().getType() == 0) {
+             resized = new BufferedImage(neww, newh, BufferedImage.TYPE_INT_RGB);
+        } else {
+            resized = new BufferedImage(neww, newh, getCanvas().getImage().getType());
+        }
         System.out.println(Double.toString(x_ratio) + "::" + Double.toString(y_ratio));
         for (int x = 0; x < neww; x++) {
             for (int y = 0; y < newh; y++) {
                 int u = (int) ((double) x * (1.0 / x_ratio));
                 int v = (int) ((double) y * (1.0 / y_ratio));
                 if (u < w && v < h) {
-                    int u0 = x * (int)(1.0 / x_ratio);
-                    int v0 = y * (int)(1.0 / y_ratio);
-                    int u1 = (x + 1) * (int)(1.0 /x_ratio);
-                    int v1 = (y + 1) * (int)(1.0 /y_ratio);
+                    int u0 = x * (int) (1.0 / x_ratio);
+                    int v0 = y * (int) (1.0 / y_ratio);
+                    int u1 = (x + 1) * (int) (1.0 / x_ratio);
+                    int v1 = (y + 1) * (int) (1.0 / y_ratio);
                     Color c = getRGBBox(u0, v0, u1, v1);
                     resized.setRGB(x, y, c.getRGB());
                 }
             }
-            setProgress((int)(((double)x/(double)neww)*100));
+            setProgress((int) (((double) x / (double) neww) * 100));
         }
         return resized;
     }
@@ -177,7 +182,12 @@ public class Resize extends ImageProcessor{
         double y_ratio = newh / (double) h;
         double px, py;
         BufferedImage original = getCanvas().getImage();
-        BufferedImage resized = new BufferedImage(neww, newh, getCanvas().getImage().getType());
+        BufferedImage resized;
+        if (getCanvas().getImage().getType() == 0) {
+             resized = new BufferedImage(neww, newh, BufferedImage.TYPE_INT_RGB);
+        } else {
+            resized = new BufferedImage(neww, newh, getCanvas().getImage().getType());
+        }
         System.out.println(Double.toString(x_ratio) + "::" + Double.toString(y_ratio));
         for (int x = 0; x < neww; x++) {
             for (int y = 0; y < newh; y++) {
@@ -189,7 +199,7 @@ public class Resize extends ImageProcessor{
                 }
 
             }
-            setProgress((int)(((double)x/(double)neww)*100));
+            setProgress((int) (((double) x / (double) neww) * 100));
         }
         return resized;
     }

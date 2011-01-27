@@ -92,9 +92,6 @@ public class HistogramStats {
     private void generateCfd(){
         cfd = new int[256];
         int sum = 0;
-        
-        
-
         for(int i=0;i<256;i++){
             sum+=histogram[i];
             cfd[i]=sum;
