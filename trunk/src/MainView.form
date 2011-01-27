@@ -108,6 +108,20 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bCropActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="bResize">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="bResize.icon"/>
+                <Property name="text" type="java.lang.String" resourceKey="bResize.text"/>
+                <Property name="toolTipText" type="java.lang.String" resourceKey="bResize.toolTipText"/>
+                <Property name="focusable" type="boolean" value="false"/>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="name" type="java.lang.String" value="bResize" noResource="true"/>
+                <Property name="verticalTextPosition" type="int" value="3"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bResizeActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
@@ -229,6 +243,7 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Shift+Ctrl+R"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" resourceKey="mResize.icon"/>
                 <Property name="text" type="java.lang.String" resourceKey="mResize.text"/>
                 <Property name="toolTipText" type="java.lang.String" resourceKey="mResize.toolTipText"/>
                 <Property name="name" type="java.lang.String" value="mResize" noResource="true"/>
