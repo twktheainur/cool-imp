@@ -27,7 +27,7 @@ public class FuseImages extends ImageProcessor{
         this.canvas_2 = canvas_2;
         this.weight_1 = weight_1;
         this.weight_2 = weight_2;
-
+        addPropertyChangeListener(plc);
     }
 
     protected String getGeneratedImageString(){
@@ -75,6 +75,7 @@ public class FuseImages extends ImageProcessor{
                         weight_2 * RGBColor.extractB(rgb_2));
                 fused.setRGB(x, y, RGBColor.combineRGB(fr, fg, fb));
             }
+            setProgress((int) (((double) x / (double) fw) * 100));
         }
         return fused;
     }
