@@ -32,8 +32,8 @@ public class MeanController implements PropertyChangeListener {
         if (original != null) {
             view.getCanvas().setImage(original);
             view.getCanvas().repaint();
-            view.dispose();
         }
+        view.dispose();
     }
 
     public void applyMean() {

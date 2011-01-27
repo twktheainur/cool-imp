@@ -14,7 +14,11 @@
  */
 import Components.ImageCanvas;
 import Processing.Histogram;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
+import javax.swing.JCheckBox;
+import javax.swing.JTextField;
 
 public class ColorHistogramView extends javax.swing.JFrame {
 
@@ -31,7 +35,7 @@ public class ColorHistogramView extends javax.swing.JFrame {
         this.mode = mode;
         mainView = v;
         canvas = v.getCurrentTabCanvas();
-  
+
         if (mode == YUV_MODE) {
             lComponent1.setText("Y Histogram:");
             lComponent2.setText("U Histogram:");
@@ -41,6 +45,46 @@ public class ColorHistogramView extends javax.swing.JFrame {
             lComponent2.setText("G Histogram:");
             lComponent3.setText("B Histogram:");
         }
+
+        cbEq1.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent evt) {
+                if (evt.getStateChange() == ItemEvent.SELECTED) {
+                    tfMaxComponent1.setEnabled(false);
+                    tfMinComponent1.setEnabled(false);
+                } else {
+                    tfMaxComponent1.setEnabled(true);
+                    tfMinComponent1.setEnabled(true);
+                }
+            }
+        });
+        cbEq2.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent evt) {
+                if (evt.getStateChange() == ItemEvent.SELECTED) {
+                    tfMaxComponent2.setEnabled(false);
+                    tfMinComponent2.setEnabled(false);
+                } else {
+                    tfMaxComponent2.setEnabled(true);
+                    tfMinComponent2.setEnabled(true);
+                }
+            }
+        });
+        cbEq3.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent evt) {
+                if (evt.getStateChange() == ItemEvent.SELECTED) {
+                    tfMaxComponent3.setEnabled(false);
+                    tfMinComponent3.setEnabled(false);
+                } else {
+                    tfMaxComponent3.setEnabled(true);
+                    tfMinComponent3.setEnabled(true);
+                }
+            }
+        });
     }
 
     /** This method is called from within the constructor to
@@ -52,7 +96,7 @@ public class ColorHistogramView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bApply = new javax.swing.JButton();
+        bPreview = new javax.swing.JButton();
         pComponent1 = new javax.swing.JPanel();
         pComponent2 = new javax.swing.JPanel();
         bOK = new javax.swing.JButton();
@@ -73,6 +117,9 @@ public class ColorHistogramView extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         bClose = new javax.swing.JButton();
+        cbEq1 = new javax.swing.JCheckBox();
+        cbEq2 = new javax.swing.JCheckBox();
+        cbEq3 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(Main.class).getContext().getResourceMap(ColorHistogramView.class);
@@ -80,9 +127,14 @@ public class ColorHistogramView extends javax.swing.JFrame {
         setName("Form"); // NOI18N
         setResizable(false);
 
-        bApply.setMnemonic('A');
-        bApply.setText(resourceMap.getString("bApply.text")); // NOI18N
-        bApply.setName("bApply"); // NOI18N
+        bPreview.setMnemonic('P');
+        bPreview.setText(resourceMap.getString("bPreview.text")); // NOI18N
+        bPreview.setName("bPreview"); // NOI18N
+        bPreview.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPreviewActionPerformed(evt);
+            }
+        });
 
         pComponent1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pComponent1.setName("pComponent1"); // NOI18N
@@ -117,6 +169,11 @@ public class ColorHistogramView extends javax.swing.JFrame {
         bOK.setMnemonic('O');
         bOK.setText(resourceMap.getString("bOK.text")); // NOI18N
         bOK.setName("bOK"); // NOI18N
+        bOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bOKActionPerformed(evt);
+            }
+        });
 
         pComponent3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pComponent3.setName("pComponent3"); // NOI18N
@@ -187,6 +244,15 @@ public class ColorHistogramView extends javax.swing.JFrame {
             }
         });
 
+        cbEq1.setText(resourceMap.getString("cbEq1.text")); // NOI18N
+        cbEq1.setName("cbEq1"); // NOI18N
+
+        cbEq2.setText(resourceMap.getString("cbEq2.text")); // NOI18N
+        cbEq2.setName("cbEq2"); // NOI18N
+
+        cbEq3.setText(resourceMap.getString("cbEq3.text")); // NOI18N
+        cbEq3.setName("cbEq3"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -195,45 +261,54 @@ public class ColorHistogramView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pComponent1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lComponent1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfMinComponent1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbEq1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfMinComponent1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfMaxComponent1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lComponent1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfMaxComponent1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pComponent2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lComponent2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfMinComponent2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbEq2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfMinComponent2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfMaxComponent2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lComponent2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfMaxComponent2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfMinComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbEq3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfMinComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfMaxComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfMaxComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(603, Short.MAX_VALUE)
-                .addComponent(bOK)
+                .addContainerGap(591, Short.MAX_VALUE)
+                .addComponent(bPreview)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bApply, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bOK)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bClose)
                 .addContainerGap())
@@ -244,7 +319,7 @@ public class ColorHistogramView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lComponent2, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                        .addComponent(lComponent2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pComponent2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -264,7 +339,7 @@ public class ColorHistogramView extends javax.swing.JFrame {
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfMaxComponent1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lComponent3, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                        .addComponent(lComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,16 +350,35 @@ public class ColorHistogramView extends javax.swing.JFrame {
                                     .addComponent(tfMinComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton6)
                                     .addComponent(tfMaxComponent3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbEq3)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbEq2)
+                        .addComponent(cbEq1)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bClose)
-                    .addComponent(bApply, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bOK, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bOK, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bPreview, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public JCheckBox getCbEq1() {
+        return cbEq1;
+    }
+
+    public JCheckBox getCbEq2() {
+        return cbEq2;
+    }
+
+    public JCheckBox getCbEq3() {
+        return cbEq3;
+    }
+    
 
     public void drawComponent1Histogram(BufferedImage img) {
         javax.swing.GroupLayout gl1 = (javax.swing.GroupLayout) pComponent1.getLayout();
@@ -322,6 +416,30 @@ public class ColorHistogramView extends javax.swing.JFrame {
         ic3.setVisible(true);
     }
 
+    public JTextField getTfMaxComponent1() {
+        return tfMaxComponent1;
+    }
+
+    public JTextField getTfMaxComponent2() {
+        return tfMaxComponent2;
+    }
+
+    public JTextField getTfMaxComponent3() {
+        return tfMaxComponent3;
+    }
+
+    public JTextField getTfMinComponent1() {
+        return tfMinComponent1;
+    }
+
+    public JTextField getTfMinComponent2() {
+        return tfMinComponent2;
+    }
+
+    public JTextField getTfMinComponent3() {
+        return tfMinComponent3;
+    }
+
     public int getMode() {
         return mode;
     }
@@ -329,8 +447,7 @@ public class ColorHistogramView extends javax.swing.JFrame {
     public ImageCanvas getCanvas() {
         return canvas;
     }
-    
-    
+
     public ColorHistogramController getController() {
         return controller;
     }
@@ -339,14 +456,29 @@ public class ColorHistogramView extends javax.swing.JFrame {
         this.controller = controller;
     }
 
+    public MainView getMainView() {
+        return mainView;
+    }
+
     private void bCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCloseActionPerformed
-        dispose();
         mainView.setExclusiveActionInProgess(false);
+        controller.cancelEquilization();
     }//GEN-LAST:event_bCloseActionPerformed
+
+    private void bOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOKActionPerformed
+        controller.applyEquilization();
+    }//GEN-LAST:event_bOKActionPerformed
+
+    private void bPreviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPreviewActionPerformed
+        controller.previewEquilization();
+    }//GEN-LAST:event_bPreviewActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bApply;
     private javax.swing.JButton bClose;
     private javax.swing.JButton bOK;
+    private javax.swing.JButton bPreview;
+    private javax.swing.JCheckBox cbEq1;
+    private javax.swing.JCheckBox cbEq2;
+    private javax.swing.JCheckBox cbEq3;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

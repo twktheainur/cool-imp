@@ -3,8 +3,6 @@ import Processing.Resize;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.JSpinner;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 

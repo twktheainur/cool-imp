@@ -29,52 +29,67 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="pComponent1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lComponent1" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="tfMinComponent1" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="cbEq1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="tfMinComponent1" min="-2" pref="57" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="tfMaxComponent1" min="-2" pref="57" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="lComponent1" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="pComponent2" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lComponent2" min="-2" pref="125" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="tfMinComponent2" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="cbEq2" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="tfMinComponent2" min="-2" pref="57" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButton4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="tfMaxComponent2" min="-2" pref="57" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="lComponent2" min="-2" pref="125" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="pComponent3" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lComponent3" min="-2" pref="135" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="tfMinComponent3" min="-2" pref="57" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="cbEq3" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="tfMinComponent3" min="-2" pref="57" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButton6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="tfMaxComponent3" min="-2" pref="57" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="pComponent3" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="lComponent3" min="-2" pref="135" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="603" max="32767" attributes="0"/>
-              <Component id="bOK" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="591" max="32767" attributes="0"/>
+              <Component id="bPreview" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="bApply" min="-2" pref="59" max="-2" attributes="0"/>
+              <Component id="bOK" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="bClose" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -87,7 +102,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="1">
-                      <Component id="lComponent2" pref="44" max="32767" attributes="0"/>
+                      <Component id="lComponent2" min="-2" pref="44" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="pComponent2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -111,7 +126,7 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="1">
-                      <Component id="lComponent3" pref="44" max="32767" attributes="0"/>
+                      <Component id="lComponent3" min="-2" pref="44" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="pComponent3" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -127,11 +142,19 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="cbEq3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="cbEq2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbEq1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="bClose" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bApply" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                   <Component id="bOK" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="bPreview" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -139,12 +162,15 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="bApply">
+    <Component class="javax.swing.JButton" name="bPreview">
       <Properties>
-        <Property name="mnemonic" type="int" value="65"/>
-        <Property name="text" type="java.lang.String" resourceKey="bApply.text"/>
-        <Property name="name" type="java.lang.String" value="bApply" noResource="true"/>
+        <Property name="mnemonic" type="int" value="80"/>
+        <Property name="text" type="java.lang.String" resourceKey="bPreview.text"/>
+        <Property name="name" type="java.lang.String" value="bPreview" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bPreviewActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="pComponent1">
       <Properties>
@@ -204,6 +230,9 @@
         <Property name="text" type="java.lang.String" resourceKey="bOK.text"/>
         <Property name="name" type="java.lang.String" value="bOK" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bOKActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="pComponent3">
       <Properties>
@@ -330,6 +359,24 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bCloseActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbEq1">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="cbEq1.text"/>
+        <Property name="name" type="java.lang.String" value="cbEq1" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbEq2">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="cbEq2.text"/>
+        <Property name="name" type="java.lang.String" value="cbEq2" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbEq3">
+      <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="cbEq3.text"/>
+        <Property name="name" type="java.lang.String" value="cbEq3" noResource="true"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

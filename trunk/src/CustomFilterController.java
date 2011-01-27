@@ -8,24 +8,23 @@
  * @author twk
  */
 import java.awt.image.BufferedImage;
-import Processing.LaplacianFilter;
-import Processing.SobelFilter;
+import Processing.CustomFilter;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 
-public class LaplacianController implements PropertyChangeListener {
+public class CustomFilterController implements PropertyChangeListener {
 
-    private LaplacianView view;
+    private CustomFilterView view;
     private BufferedImage original;
     private MainController mainController;
 
-    public LaplacianController(LaplacianView view, MainController mc) {
+    public CustomFilterController(CustomFilterView view, MainController mc) {
         this.view = view;
         view.setController(this);
         mainController = mc;
     }
 
-    public void cancelLaplacian() {
+    public void cancelCustomFilter() {
         if (original != null) {
             view.getCanvas().setImage(original);
             view.getCanvas().repaint();
@@ -33,31 +32,33 @@ public class LaplacianController implements PropertyChangeListener {
         view.dispose();
     }
 
-    public void previewLaplacian() {
+    public void previewCustomFilter() {
         if (original == null) {
             original = view.getCanvas().getImage();
         } else {
             view.getCanvas().setImage(original);
         }
-        LaplacianFilter lf = new LaplacianFilter(view.getCanvas(), view.getSelectedSize(), this);
-        lf.setGrayscale(view.isGrayscaleSelected());
-        mainController.observe(lf.getResultObservable());
-        lf.startProcess(true);
+        CustomFilter cf = new CustomFilter(view.getCanvas(),
+                view.getKernel(),
+                view.getMatrixWidth(),
+                view.getMatirxHeight(), this);
+        mainController.observe(cf.getResultObservable());
+        cf.startProcess(true);
     }
 
-    public void applyLapacian() {
+    public void applyCustomFilter() {
         if (original != null) {
             view.getCanvas().setImage(original);
         }
-        LaplacianFilter lf = new LaplacianFilter(view.getCanvas(), view.getSelectedSize(), this);
-        // SobelFilter lf = new SobelFilter(view.getCanvas(),3,this);
-        mainController.observe(lf.getResultObservable());
-        lf.setGrayscale(view.isGrayscaleSelected());
-        lf.startProcess(false);
-        view.dispose();
+        CustomFilter cf = new CustomFilter(view.getCanvas(),
+                view.getKernel(),
+                view.getMatrixWidth(),
+                view.getMatirxHeight(), this);
+        mainController.observe(cf.getResultObservable());
+        cf.startProcess(true);
     }
 
-    public void displayLaplacianWindow() {
+    public void displayCustomFilterWindow() {
         view.setVisible(true);
     }
 

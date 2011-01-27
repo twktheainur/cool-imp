@@ -116,7 +116,6 @@ public class MainView extends FrameView {
         return progressBar;
     }
 
-
     public void setExclusiveActionInProgess(boolean exclusiveActionInProgess) {
         this.exclusiveActionInProgess = exclusiveActionInProgess;
     }
@@ -404,6 +403,11 @@ public class MainView extends FrameView {
         mFuse.setText(resourceMap.getString("mFuse.text")); // NOI18N
         mFuse.setToolTipText(resourceMap.getString("mFuse.toolTipText")); // NOI18N
         mFuse.setName("mFuse"); // NOI18N
+        mFuse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mFuseActionPerformed(evt);
+            }
+        });
         imageMenu.add(mFuse);
 
         menuBar.add(imageMenu);
@@ -455,6 +459,11 @@ public class MainView extends FrameView {
 
         mCustom.setText(resourceMap.getString("mCustom.text")); // NOI18N
         mCustom.setName("mCustom"); // NOI18N
+        mCustom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mCustomActionPerformed(evt);
+            }
+        });
         filterMenu.add(mCustom);
 
         menuBar.add(filterMenu);
@@ -634,7 +643,7 @@ public class MainView extends FrameView {
 
     private void mColorHistogramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mColorHistogramActionPerformed
         if (getCurrentTabCanvas() != null || !exclusiveActionInProgess) {
-            exclusiveActionInProgess = true;
+            //exclusiveActionInProgess = true;
             controller.colorHistogram(getCurrentTabCanvas(), mYUVMode.isSelected());
         }
     }//GEN-LAST:event_mColorHistogramActionPerformed
@@ -664,11 +673,22 @@ public class MainView extends FrameView {
     }//GEN-LAST:event_mMeanActionPerformed
 
     private void mGradientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mGradientActionPerformed
-         if (getCurrentTabCanvas() != null || !exclusiveActionInProgess) {
+        if (getCurrentTabCanvas() != null || !exclusiveActionInProgess) {
             controller.applyGradient(getCurrentTabCanvas());
         }
     }//GEN-LAST:event_mGradientActionPerformed
 
+    private void mCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCustomActionPerformed
+        if (getCurrentTabCanvas() != null || !exclusiveActionInProgess) {
+            controller.applyCustomFilter(getCurrentTabCanvas());
+        }
+    }//GEN-LAST:event_mCustomActionPerformed
+
+    private void mFuseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mFuseActionPerformed
+        if (getCurrentTabCanvas() != null || !exclusiveActionInProgess) {
+            controller.fuseImages(getCurrentTabCanvas());
+        }
+    }//GEN-LAST:event_mFuseActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bClose;
     private javax.swing.JButton bCrop;

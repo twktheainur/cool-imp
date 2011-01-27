@@ -26,8 +26,10 @@ public class YUVColor {
         convertRGB(r, g, b);
     }
 
-    public YUVColor(){
-        y=0;u=0;v=0;
+    public YUVColor() {
+        y = 0;
+        u = 0;
+        v = 0;
     }
 
     private void convertRGB(int r, int g, int b) {
@@ -76,16 +78,32 @@ public class YUVColor {
         return YUVColor.extractV(r, g, b);
     }
 
-    public Color getRGB() {
-        int r = (int) ((double) y +
-                (double) v * 1.13983);
-        int g = (int) ((double) y +
-                (double) u * -0.39465 +
-                (double) v * -0.58060);
-        int b = (int) ((double) y +
-                (double) u * 2.03211);
-        Color rgb = new Color(r, g, b);
-        return rgb;
+    /*public Color getRGB() {
+    int r = (int) ((double) y +
+    (double) v * 1.13983);
+    int g = (int) ((double) y +
+    (double) u * -0.39465 +
+    (double) v * -0.58060);
+    int b = (int) ((double) y +
+    (double) u * 2.03211);
+    Color rgb = new Color(r, g, b);
+    return rgb;
+    }*/
+    public static int getRGB(int y, int u, int v) {
+        int r = (int) (((double)y-16.0)*(255.0/219.0) +
+                ((double) v -128.0) *(255.0/112.0*0.701));
+        int g = (int) (((double)y-16.0)*(255.0/219.0) -
+                ((double) u-128)*((255.0/112.0)*0.886*(0.114/0.587))  -
+                ((double) v-128) *((255.0/112.0)*0.701*(0.299/0.587)));
+        int b = (int) (((double)y-16.0)*(255.0/219.0)+
+                       ((double)u-128)*(255.0/112.0*0.886));
+        r = (r<0)?0:r;
+        g = (g<0)?0:g;
+        b = (b<0)?0:b;
+        r = (r>255)?255:r;
+        g = (g>255)?255:g;
+        b = (b>255)?255:b;
+        return RGBColor.combineRGB(r, g, b);
     }
 
     public int getU() {
