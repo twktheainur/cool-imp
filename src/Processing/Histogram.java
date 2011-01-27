@@ -42,7 +42,7 @@ public class Histogram {
         }
     }
 
-    int getComponent3(int x, int y) {
+    public int getComponent3(int x, int y) {
         int rgb = canvas.getImage().getRGB(x, y);
         if (mode == RGB_MODE) {
             return RGBColor.extractB(rgb);
@@ -87,7 +87,7 @@ public class Histogram {
         return hist;
     }
 
-    public int histMax(int[] hist) {
+    public static int histMax(int[] hist) {
         int max = 0;
         for (int i = 0; i < 256; i++) {
             max = (max < hist[i]) ? hist[i] : max;
@@ -95,8 +95,17 @@ public class Histogram {
         return max;
     }
 
+    public static int histMin(int[] hist) {
+        int min = 255;
+        for (int i = 0; i < 256; i++) {
+            min = (min > hist[i]) ? hist[i] : min;
+        }
+        return min;
+    }
+
+
     public BufferedImage getHistogramImage(int[] hist) {
-        int max = histMax(hist);
+        int max = Histogram.histMax(hist);
         Color c = Color.black;
         int color = c.getRGB();
         BufferedImage histImage = new BufferedImage(256, 256, BufferedImage.TYPE_BYTE_GRAY);
@@ -112,5 +121,4 @@ public class Histogram {
         }
         return histImage;
     }
-    
 }

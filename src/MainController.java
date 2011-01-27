@@ -109,13 +109,13 @@ public class MainController {
     public void colorHistogram(ImageCanvas current_canvas, boolean isYUV) {
         int mode = (isYUV) ? ColorHistogramView.YUV_MODE : ColorHistogramView.RGB_MODE;
         ColorHistogramView chv = new ColorHistogramView(view, mode);
-        ColorHistogramController chc = new ColorHistogramController(chv);
+        ColorHistogramController chc = new ColorHistogramController(chv,this);
         chc.displayHistogramWindow();
     }
 
     public void resize() {
         ResizeView resizeView = new ResizeView(view);
-        ResizeController resizeController = new ResizeController(resizeView,this);
+        ResizeController resizeController = new ResizeController(resizeView, this);
         resizeController.displayResizeWindow();
     }
 
@@ -127,26 +127,38 @@ public class MainController {
 
     public void applyGaussianBlur(ImageCanvas current_canvas) {
         GaussianBlurView gbv = new GaussianBlurView(view);
-        GaussianBlurController gbc = new GaussianBlurController(gbv,this);
+        GaussianBlurController gbc = new GaussianBlurController(gbv, this);
         gbc.displayBlurWindow();
     }
 
     public void applyLaplacian(ImageCanvas current_canvas) {
         LaplacianView lv = new LaplacianView(getView());
-        LaplacianController lc = new LaplacianController(lv,this);
+        LaplacianController lc = new LaplacianController(lv, this);
         lc.displayLaplacianWindow();
     }
 
-    public void applyMean(ImageCanvas current_canvas){
+    public void applyMean(ImageCanvas current_canvas) {
         MeanView mv = new MeanView(getView());
         MeanController mc = new MeanController(mv, this);
         mc.displayMeanWindow();
     }
 
-    public void applyGradient(ImageCanvas current_canvas){
+    public void applyGradient(ImageCanvas current_canvas) {
         GradientView gv = new GradientView(getView());
         GradientController gc = new GradientController(gv, this);
         gc.displayGradientWindow();
+    }
+
+    public void applyCustomFilter(ImageCanvas current_canvas) {
+        CustomFilterView cfv = new CustomFilterView(getView());
+        CustomFilterController cfc = new CustomFilterController(cfv, this);
+        cfc.displayCustomFilterWindow();
+    }
+
+    public void fuseImages(ImageCanvas current_canvas){
+        FuseImagesView fiv = new FuseImagesView(getView());
+        FuseImagesController fic = new FuseImagesController(fiv, this);
+        fic.displayFuseImageWindow();
     }
 
     public void observe(CropListener cl) {
@@ -172,9 +184,9 @@ public class MainController {
 
         public void update(Observable obs, Object obj) {
             ImageProcessor.ResultObservable ro = (ImageProcessor.ResultObservable) obs;
-            if(!ro.isPreview()){
+            if (!ro.isPreview()) {
                 view.addImage(ro.getName(), null, ro.getImage(), false);
-            } else{
+            } else {
                 view.getCurrentTabCanvas().setImage(ro.getImage());
                 view.getCurrentTabCanvas().repaint();
             }

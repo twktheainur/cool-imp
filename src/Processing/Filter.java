@@ -11,7 +11,7 @@ import Image.YUVColor;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-abstract public class Filter extends ImageProcessor{
+abstract public class Filter extends ImageProcessor {
 
     private double[][] kernel;
     private int kernelWidth;
@@ -45,7 +45,7 @@ abstract public class Filter extends ImageProcessor{
         int krX, krY;
         double rval = 0.0, gval = 0.0, bval = 0.0;
         double yval;
-        Graphics2D g2 = (Graphics2D)result.getGraphics();
+        Graphics2D g2 = (Graphics2D) result.getGraphics();
         g2.setColor(Color.black);
         g2.fillRect(0, 0, sourceWidth, sourceHeight);
         g2.dispose();
@@ -55,8 +55,7 @@ abstract public class Filter extends ImageProcessor{
                 kernelTotal += kernel[krX][krY];
             }
         }
-       System.out.println(kernelTotal);
-       if((int)kernelTotal == 0){
+        if ((int) kernelTotal == 0) {
             kernelTotal = 1.0;
         }
 
@@ -82,21 +81,25 @@ abstract public class Filter extends ImageProcessor{
                     }
                     if (type == BufferedImage.TYPE_BYTE_GRAY) {
                         int gs = (int) (yval / kernelTotal);
-                        gs = (gs>255)?255:((gs<0)?0:gs);
+                        gs = (gs != -255) ? ((gs < 0) ? -gs : gs) : 0;
+                        gs = (gs > 255) ? 255 : gs;
                         result.setRGB(x, y, RGBColor.combineRGB(gs, gs, gs));
                     } else {
-                        int r = (int)(rval / kernelTotal);
-                        int g = (int)(gval / kernelTotal);
-                        int b = (int)(bval / kernelTotal);
-                      
-                        r = (r>255)?255:((r<0)?0:r);
-                        g = (g>255)?255:((g<0)?0:g);
-                        b = (b>255)?255:((b<0)?0:b);
+                        int r = (int) (rval / kernelTotal);
+                        int g = (int) (gval / kernelTotal);
+                        int b = (int) (bval / kernelTotal);
+                        r = (r < 0) ? -r : r;
+                        g = (g < 0) ? -g : g;
+                        b = (b < 0) ? -b : b;
+                        r = (r > 255) ? 255 : r;
+                        g = (g > 255) ? 255 : g;
+                        b = (b > 255) ? 255 : b;
                         result.setRGB(x, y, RGBColor.combineRGB(r, g, b));
                     }
                 }
+                System.out.flush();
             }
-            setProgress((int)(progressFactor*((double)x/(double)sourceWidth)*100)+progressOffset);
+            setProgress((int) (progressFactor * ((double) x / (double) sourceWidth) * 100) + progressOffset);
         }
 
         return result;
@@ -118,13 +121,11 @@ abstract public class Filter extends ImageProcessor{
         this.progressOffset = progressOffset;
     }
 
-    
-
     public BufferedImage applyFilter() {
         return convolveRGB();
     }
 
-    public BufferedImage process(){
+    public BufferedImage process() {
         return applyFilter();
     }
 

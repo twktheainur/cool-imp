@@ -12,7 +12,6 @@ import Processing.GaussianFilter;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 
-
 public class GaussianBlurController implements PropertyChangeListener {
 
     private GaussianBlurView view;
@@ -31,25 +30,25 @@ public class GaussianBlurController implements PropertyChangeListener {
         } else {
             view.getCanvas().setImage(original);
         }
-        GaussianFilter gbf = new GaussianFilter(view.getCanvas(), view.getSizeValue(),this);
-         mainController.observe(gbf.getResultObservable());
-         gbf.startProcess(true);
-         
+        GaussianFilter gbf = new GaussianFilter(view.getCanvas(), view.getSizeValue(), this);
+        mainController.observe(gbf.getResultObservable());
+        gbf.startProcess(true);
+
     }
 
     public void cancelGaussianBlur() {
         if (original != null) {
             view.getCanvas().setImage(original);
             view.getCanvas().repaint();
-            view.dispose();
         }
+        view.dispose();
     }
 
     public void applyGaussianBlur() {
-        if(original!=null){
+        if (original != null) {
             view.getCanvas().setImage(original);
         }
-        GaussianFilter gbf = new GaussianFilter(view.getCanvas(), view.getSizeValue(),this);
+        GaussianFilter gbf = new GaussianFilter(view.getCanvas(), view.getSizeValue(), this);
         mainController.observe(gbf.getResultObservable());
         gbf.startProcess(false);
         view.dispose();

@@ -125,6 +125,7 @@ public class Resize extends ImageProcessor{
         int h = getCanvas().getImage().getHeight();
         //Image img = canvas.getImage().getScaledInstance(neww, newh,Image.SCALE_AREA_AVERAGING);
         //return BufferedImageConverter.createBufferedImage(img, canvas);
+
         /*if (newh < h && neww < w) {
             return doReduce(neww, newh);
         } else if (neww < w) {

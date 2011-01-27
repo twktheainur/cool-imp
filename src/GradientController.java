@@ -30,24 +30,22 @@ public class GradientController implements PropertyChangeListener {
         if (original != null) {
             view.getCanvas().setImage(original);
             view.getCanvas().repaint();
-            view.dispose();
         }
+        view.dispose();
     }
 
-    private Filter getFilter(int mode){
-        if(mode==GradientView.METHOD_SOBEL){
-            SobelFilter sf = new SobelFilter(view.getCanvas(),3,this);
+    private Filter getFilter(int mode) {
+        if (mode == GradientView.METHOD_SOBEL) {
+            SobelFilter sf = new SobelFilter(view.getCanvas(), 3, this);
             sf.setGrayscale(view.isGrayscale());
             sf.setThreshold(150);
             return sf;
-        }
-        else if(mode==GradientView.METHOD_PREWITT){
-            PrewittFilter pf = new PrewittFilter(view.getCanvas(),3,this);
+        } else if (mode == GradientView.METHOD_PREWITT) {
+            PrewittFilter pf = new PrewittFilter(view.getCanvas(), 3, this);
             pf.setGrayscale(view.isGrayscale());
             pf.setThreshold(150);
             return pf;
-        }
-        else {
+        } else {
             return null;
         }
     }
